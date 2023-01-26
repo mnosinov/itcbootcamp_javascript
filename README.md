@@ -1,1 +1,2 @@
-# itcbootcamp_javascript
+# itcbootcamp javascript lessons
+itcbootcamp javascript lessons
