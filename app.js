@@ -1,20 +1,35 @@
-let currentYear = 2023;
+/* version 1 Straightforward ------------------------------- */
+function reverseStringEvenUpperCaseStraightForward(str) {
+	let result = "";
+	for (let i = str.length - 1; i >= 0; i--) {
+		let letter = str[i];
+		if (i % 2 != 0) letter = letter.toUpperCase();
+		result += letter;
+	}
 
-let presidentsQauntity = 3;
+	return result;
+}
 
-let makronBirthYear = 1977;
-let baidenBirthYear = 1942;
-let trumpBirthYear = 1946;
+/* version 2 Recursive ------------------------------- */
+function reverseStringEvenUpperCaseRecursive(str) {
+	if (str == "") return "";
+	let strLen = str.length;
+	let letter = str[strLen - 1];
+	if ((strLen - 1) % 2 != 0) letter = letter.toUpperCase();
+	return  letter + reverseStringEvenUpperCaseRecursive(str.substring(0, strLen - 1));
+}
 
-let makronAge = currentYear - makronBirthYear;
-let baidenAge = currentYear - baidenBirthYear;
-let trumpAge = currentYear - trumpBirthYear;
+/* version 3 JS libs, converting to array ------------------ */
+function reverseEvenUpperCaseStringJSLibs(str) {
+	let afterSplit = str.split("");
+	let afterReverse = afterSplit.reverse();
+	for (let i = 0; i < afterReverse.length; i++) {
+		if (i % 2 != 0) afterReverse[i] = afterReverse[i].toUpperCase();
+	}
+	let afterJoin = afterReverse.join("");
+	return afterJoin;
+}
 
-let agesSum = makronAge + baidenAge + trumpAge;
-let avgAge = agesSum / presidentsQauntity;
-
-console.log("Makron's age is",  makronAge);
-console.log("Baiden's age is", baidenAge);
-console.log("Trump's age is " + trumpAge);
-console.log("Total sum of presidents ages is", agesSum);
-console.log("Average age of presidents is", avgAge);
+console.log(reverseStringEvenUpperCaseStraightForward("hello"));
+console.log(reverseStringEvenUpperCaseRecursive("hello"));
+console.log(reverseEvenUpperCaseStringJSLibs("hello"));
