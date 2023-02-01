@@ -23,6 +23,7 @@ body {
 
 .card:hover {
 	background-color: #F2CD5C;
+	animation: upAndDown 0.4s ease-in-out;
 }
 
 .card .item-image {
@@ -63,7 +64,7 @@ body {
 }
 
 .rotated {
- animation: rotate 4s linear infinite;
+	animation: rotate 4s linear infinite;
 }
 
 @keyframes rotate {
@@ -72,4 +73,26 @@ body {
 	} to {
 		transform: rotate(360deg);
 	}
+}
+
+/*
+@keyframes upAndDown {
+	from {
+		transform: translateY(100px);
+	} to {
+		transform: translateY(50px);
+	}
+}
+*/
+
+@keyframes upAndDown {
+	0% {
+		top: 10px;
+	} 
+	50% {
+		top: 0px;
+	} 
+	100% {
+		top: 20px;
+	} 
 }
