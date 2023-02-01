@@ -20,7 +20,7 @@ const houses = [
 		cost: 1000,
 		numOfRooms: 5,
 		image: "http://cdn.home-designing.com/wp-content/themes/homedesigning-theme-last-12/images/landing/modern-house-exterior.jpg",
-		newAd: false
+		newAd: true
 	},
 	{
 		name: "Luxary Mansion",
@@ -50,7 +50,7 @@ const houses = [
 		cost: 3000,
 		numOfRooms: 10,
 		image: "https://i.ytimg.com/vi/ApgSiH_PWr4/maxresdefault.jpg",
-		newAd: false
+		newAd: true
 	}
 ];
 
@@ -83,6 +83,7 @@ for (let i = 0; i < houses.length; i++) {
 		const newMark = document.createElement("img");
 		newMark.src = "images/new.png";
 		newMark.classList.add("new-mark");
+		newMark.classList.add("rotated");
 		card.appendChild(newMark);
 	}
 
