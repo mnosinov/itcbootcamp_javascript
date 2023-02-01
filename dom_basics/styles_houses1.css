@@ -1,6 +1,6 @@
 body {
 	height: 100%;
-	background-color: #49BFAF;
+	background-color: silver;
 }
 
 .container {
@@ -9,11 +9,10 @@ body {
 	justify-content: space-evenly;
 	width: 100%;
 	height: 100%;
-	margin: 0 auto;
 }
 
-.card {
-	background-color: #FFFBAC;
+.block {
+	background-color: white;
 	margin: 5px;
 	border-radius: 5px;
 	padding: 10px;
@@ -21,24 +20,12 @@ body {
 }
 
 
-.card img {
+.block img {
 	width: 100%;
 	max-width: 500px;
 }
 
-.card h1 {
+.block h1 {
 	text-align: center;
 	font-size: 18px;
-}
-
-.areaLessThan200 {
-	color: blue;
-}
-
-.areaLessThan300AndMoreThan200 {
-	color: brown;
-}
-
-.areaThan300 {
-	color: orange;
 }
