@@ -54,6 +54,7 @@ const houses = [
 	}
 ];
 
+/*
 for (let i = 0; i < houses.length; i++) {
 	const card = document.createElement("div");
 	// image
@@ -73,7 +74,7 @@ for (let i = 0; i < houses.length; i++) {
 
 	if (houses[i].area >= 200 && houses[i].area < 300) {
 		areaClass = "areaLessThan300AndMoreThan200"; 
-	} else {
+	} else if (house.area >= 300) {
 		areaClass = "areaThan300"; 
 	}
 	area.classList.add(areaClass); 
@@ -91,5 +92,29 @@ for (let i = 0; i < houses.length; i++) {
 	card.classList.add("card");
 	container.appendChild(card);
 }
+*/
 
-console.log(container);
+for (let i = 0; i < houses.length; i++) {
+	const house = houses[i];
+
+	let areaClass = "areaLessThan200";
+
+	if (house.area >= 200 && house.area < 300) {
+		areaClass = "areaLessThan300AndMoreThan200"; 
+	} else if (house.area >= 300) {
+		areaClass = "areaThan300"; 
+	}
+
+	container.innerHTML += `
+		<div class="card">
+			${ house.newAd ? "<img src='images/new.png' alt='New Advertisement' class='new-mark'>" : '' }
+			<img src="${house.image}" alt="image" class="item-image">
+			<h1>${house.name}</h1>
+			<p>Type: ${house.type}</p>
+			<p>Address: ${house.address}</p>
+			<p>Area: <span class="${areaClass}">${house.area}</span></p>
+			<p>Price: ${house.cost}</p>
+			<p>Number of rooms: ${house.numOfRooms}</p>
+		</div>`;
+}
+
