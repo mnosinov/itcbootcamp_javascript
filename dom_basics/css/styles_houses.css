@@ -18,10 +18,11 @@ body {
 	border-radius: 5px;
 	padding: 10px;
 	min-height: 450px;
+	position: relative;
 }
 
 
-.card img {
+.card .item-image {
 	width: 100%;
 	max-width: 500px;
 }
@@ -41,4 +42,12 @@ body {
 
 .areaThan300 {
 	color: orange;
+}
+
+.new-mark {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	height: 45px;
+	width: 45px;
 }

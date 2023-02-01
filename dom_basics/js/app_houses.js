@@ -19,7 +19,8 @@ const houses = [
 		area: 127,
 		cost: 1000,
 		numOfRooms: 5,
-		image: "http://cdn.home-designing.com/wp-content/themes/homedesigning-theme-last-12/images/landing/modern-house-exterior.jpg"
+		image: "http://cdn.home-designing.com/wp-content/themes/homedesigning-theme-last-12/images/landing/modern-house-exterior.jpg",
+		newAd: false
 	},
 	{
 		name: "Luxary Mansion",
@@ -28,7 +29,8 @@ const houses = [
 		area: 300,
 		cost: 2000,
 		numOfRooms: 7,
-		image: "http://cdn.home-designing.com/wp-content/uploads/2015/03/two-story-box-home.jpg"
+		image: "http://cdn.home-designing.com/wp-content/uploads/2015/03/two-story-box-home.jpg",
+		newAd: true
 	},
 	{
 		name: "Apartment",
@@ -37,7 +39,8 @@ const houses = [
 		area: 200,
 		cost: 1500,
 		numOfRooms: 3,
-		image: "http://cdn.home-designing.com/wp-content/uploads/2015/03/brick-home-design-ideas.jpg"
+		image: "http://cdn.home-designing.com/wp-content/uploads/2015/03/brick-home-design-ideas.jpg",
+		newAd: false
 	},
 	{
 		name: "TownHouse",
@@ -46,7 +49,8 @@ const houses = [
 		area: 600,
 		cost: 3000,
 		numOfRooms: 10,
-		image: "https://i.ytimg.com/vi/ApgSiH_PWr4/maxresdefault.jpg"
+		image: "https://i.ytimg.com/vi/ApgSiH_PWr4/maxresdefault.jpg",
+		newAd: false
 	}
 ];
 
@@ -56,6 +60,7 @@ for (let i = 0; i < houses.length; i++) {
 	const img = document.createElement("img");
 	card.appendChild(img);
 	img.src =  houses[i].image;
+	img.classList.add("item-image");
 	// add item info as p and h1
 	addInfoItemAsP(houses[i], "name", "", card, "h1");
 	addInfoItemAsP(houses[i], "type", "Type", card, "p");
@@ -64,13 +69,23 @@ for (let i = 0; i < houses.length; i++) {
 	addInfoItemAsP(houses[i], "cost", "Price", card, "p");
 	addInfoItemAsP(houses[i], "numOfRooms", "Number of rooms", card, "p");
 	// colorize area
-	if (houses[i].area < 200) {
-		area.classList.add("areaLessThan200"); 
-	} else if (houses[i].area >= 200 && houses[i].area < 300) {
-		area.classList.add("areaLessThan300AndMoreThan200"); 
+	let areaClass = "areaLessThan200";
+
+	if (houses[i].area >= 200 && houses[i].area < 300) {
+		areaClass = "areaLessThan300AndMoreThan200"; 
 	} else {
-		area.classList.add("areaThan300"); 
+		areaClass = "areaThan300"; 
 	}
+	area.classList.add(areaClass); 
+
+	// new advertisement
+	if (houses[i].newAd) {
+		const newMark = document.createElement("img");
+		newMark.src = "images/new.png";
+		newMark.classList.add("new-mark");
+		card.appendChild(newMark);
+	}
+
 	// add card to container
 	card.classList.add("card");
 	container.appendChild(card);
