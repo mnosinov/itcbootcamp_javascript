@@ -23,7 +23,8 @@ body {
 
 .card:hover {
 	background-color: #F2CD5C;
-	animation: upAndDown 0.4s ease-in-out;
+	animation: upAndDown 0.4s infinite;
+	/*animation: upAndDown 0.4s ease-in-out;*/
 }
 
 .card .item-image {
