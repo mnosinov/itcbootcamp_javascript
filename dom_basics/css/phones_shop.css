@@ -75,6 +75,7 @@ main .title {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 10px;
 }
 
 .item-image img {
