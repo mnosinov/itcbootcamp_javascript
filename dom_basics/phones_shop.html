@@ -15,7 +15,7 @@
 			<a href="#">Ecommerce</a>
 		</div>
 		<div class="shopping-cart" id="shoppingCart">
-			<button><i class='bx bx-shopping-bag'></i></button>
+			<button id="showShoppingCart"><i class='bx bx-shopping-bag'></i></button>
 			<div id="cartSize">1</div>
 		</div>
 	</header>
@@ -24,6 +24,17 @@
 		<div class="items"></div>
 	</main>
 
+	<div id="cartContent">
+		<div class="header">
+			<h1>Shopping Cart Content</h1>
+			<button id="cartContentCloseBtn">x</button>
+		</div>
+		<div>
+			<ul id="cartItems">
+			</ul>
+			<div id="totalCartPrice"></div>
+		</div>
+	</div>
 	<script src="js/phones_shop.js"></script>
 </body>
 </html>

@@ -1,5 +1,3 @@
-var shoppingCart = [];
-
 function toggleItemInShoppingCart(itemId) {
 	let index = shoppingCart.indexOf(itemId);
 	// add or remove item to/from shopping cart
@@ -19,7 +17,39 @@ function toggleItemInShoppingCart(itemId) {
 	cartSizeElement.textContent = shoppingCart.length;
 }
 
-items = [
+function showCartContent() {
+	const cartContentDiv = document.getElementById("cartContent");
+	cartContentDiv.style.display = "flex";
+	const cartItemsUl = document.getElementById("cartItems");
+
+	let totalCartPrice = 0;
+	for (let i = 0; i < shoppingCart.length; i++) {
+		const cartItemId = shoppingCart[i];
+		const item = items.find(item => item.id == cartItemId);
+		cartItemsUl.innerHTML += `
+			<li>
+				${i + 1}. <strong>${item.name}</strong> ${item.price}$
+			</li>
+		`;
+		totalCartPrice += item.price;
+	}
+	const totalCartPriceDiv = document.getElementById("totalCartPrice");
+	totalCartPriceDiv.innerHTML = `Total price: $${totalCartPrice}`;
+}
+
+
+
+var shoppingCart = [];
+
+showShoppingCartBtn = document.getElementById("showShoppingCart");
+showShoppingCartBtn.addEventListener("click", showCartContent);
+cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
+cartContentCloseBtn .addEventListener("click", () => {
+	const cartContentDiv = document.getElementById("cartContent");
+	cartContentDiv.style.display = "none";
+});
+
+var items = [
 	{
 		id: 1,
 		name: "iPHONE 12",

@@ -117,6 +117,34 @@ main .title {
 	background-color: orange;
 }
 
+#cartContent {
+	display: none;
+	flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+	border: 1px solid black;
+	min-width: 400px;
+	min-height: 100px;
+	background-color: white;
+	padding: 5px;
+}
+
+#cartContent .header {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+}
+
+#cartContent .header h1 {
+	font-size: 15px;
+}
+
+#cartContentCloseBtn {
+	padding: 3px 7px;
+}
+
 .card-bottom button {
 	border: none;
 	background-color: transparent;
