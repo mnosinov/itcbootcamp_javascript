@@ -25,6 +25,7 @@ const getArraySum3 = function(myList) {
 	return totalSum;
 }
 
-console.log(getArraySum1([10, 20, 30, 35]));
-console.log(getArraySum2([10, 20, 30, 35]));
-console.log(getArraySum3([10, 20, 30, 35]));
+let myArray = [1,2,3,4,5,6,7,8,9,10];
+console.log(getArraySum1(myArray));
+console.log(getArraySum2(myArray));
+console.log(getArraySum3(myArray));
