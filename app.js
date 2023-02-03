@@ -1,16 +1,32 @@
-function getFirstLetter1(list) {
-	return list.map( (item, index, array) => { return item[0]; })
+function addNumber1(list, increment) {
+	return list.map( (element, index, array) => { return element + increment; });
 }
 
-const getFirstLetter2 = function(myList) {
-	return myList.map( (element, index, array) => { return element[0] + element.slice(-1); })
-};
+function addNumber2(list, increment, operation) {
+	return list.map( element => { 
+		switch (operation) {
+			case "+":
+				return element + increment;
+			case "-":
+				return element - increment;
+			case "*":
+				return element * increment;
+			case "/":
+				if (element === 0 && increment === 0) return 0;
+				return element / increment;
+		}
+	});
+}
 
-const getFirstLetter3 = myList => {
-	return myList.map( (element, index, array) => { return element[0] + element[element.length - 1]; })
-};
+console.log(addNumber1([1,2,3,4], 10));
+console.log(addNumber1([-1, 0, 1, 2], -5));
 
-const fruits = ['apple', 'banana', 'cherry'];
-console.log(getFirstLetter1(fruits));
-console.log(getFirstLetter2(fruits));
-console.log(getFirstLetter3(fruits));
+console.log("flexible math operations");
+
+let nums = [-1, 0, 1, 2];
+console.log(addNumber2(nums, -5, "+"));
+console.log(addNumber2(nums, -5, "-"));
+console.log(addNumber2(nums, -5, "*"));
+console.log(addNumber2(nums, -5, "/"));
+console.log(addNumber2(nums, 0, "/"));
+
