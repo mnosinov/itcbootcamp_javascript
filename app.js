@@ -1,16 +1,30 @@
-/* version 1 Straightforward---------------------------------- */
-function substituteLetterInStr(str, letterToSubstitue, substitutionLetter) {
-	let result = "";
-	for (let i = 0; i < str.length; i++)
-		result += str[i] === letterToSubstitue ? substitutionLetter : str[i];
-	return result;
+/* version 1 ------------------------------------*/
+function getArraySum1(array) {
+	let sum = 0;
+	array.forEach( (item, index) => {
+		sum += item;
+	});
+	return sum;
 }
 
+/* version 2 ------------------------------------*/
+const getArraySum2 = (list) => {
+	let sum = 0;
+	list.forEach( (item, index) => {
+		sum += item;
+	});
+	return sum;
+};
 
-/* version 2 with js function replace ---------------------------------- */
-function substituteLetterInStr1(str, letterToSubstitue, substitutionLetter) {
-	return str.replaceAll(letterToSubstitue, substitutionLetter);
+/* version 3 ------------------------------------*/
+const getArraySum3 = function(myList) {
+	let totalSum = 0;
+	myList.forEach( (item, index) => {
+		totalSum += item;
+	});
+	return totalSum;
 }
 
-console.log(substituteLetterInStr("hello world", "l", "x"));
-console.log(substituteLetterInStr1("hello world", "l", "x"));
+console.log(getArraySum1([10, 20, 30, 35]));
+console.log(getArraySum2([10, 20, 30, 35]));
+console.log(getArraySum3([10, 20, 30, 35]));

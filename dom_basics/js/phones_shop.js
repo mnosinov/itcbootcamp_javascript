@@ -21,6 +21,7 @@ function showCartContent() {
 	const cartContentDiv = document.getElementById("cartContent");
 	cartContentDiv.style.display = "flex";
 	const cartItemsUl = document.getElementById("cartItems");
+	cartItemsUl.innerHTML = "";
 
 	let totalCartPrice = 0;
 	for (let i = 0; i < shoppingCart.length; i++) {
