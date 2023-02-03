@@ -1,31 +1,38 @@
 /* version 1 ------------------------------------*/
-function getArraySum1(array) {
-	let sum = 0;
+function getWordsListSizes1(array) {
+	let result = [];
 	array.forEach( (item, index) => {
-		sum += item;
+		result.push(item.length);
 	});
-	return sum;
+	return result;
 }
 
 /* version 2 ------------------------------------*/
-const getArraySum2 = (list) => {
-	let sum = 0;
+const getWordsListSizes2 = (list) => {
+	let result = Array();
 	list.forEach( (item, index) => {
-		sum += item;
+		result.push(item.length);
 	});
-	return sum;
+	return result;
 };
 
 /* version 3 ------------------------------------*/
-const getArraySum3 = function(myList) {
-	let totalSum = 0;
+const getWordsListSizes3 = function(myList) {
+	let result = [];
 	myList.forEach( (item, index) => {
-		totalSum += item;
+		result.push(item.length);
 	});
-	return totalSum;
+	return result;
 }
 
-let myArray = [1,2,3,4,5,6,7,8,9,10];
-console.log(getArraySum1(myArray));
-console.log(getArraySum2(myArray));
-console.log(getArraySum3(myArray));
+/* version 4 - map ------------------------------------*/
+function getWordsListSizes4(array) {
+	return array.map( (element) => element.length);
+}
+
+const colors = ['red', 'blue', 'green'];
+
+console.log(getWordsListSizes1(colors));
+console.log(getWordsListSizes2(colors));
+console.log(getWordsListSizes3(colors));
+console.log(getWordsListSizes4(colors));
