@@ -38,17 +38,55 @@ function showCartContent() {
 	totalCartPriceDiv.innerHTML = `Total price: $${totalCartPrice}`;
 }
 
+function displayItems(items) {
+	const itemsElement = document.querySelector(".items");
+	itemsElement.innerHTML = "";
 
+	for (let item of items) {
+		itemsElement.innerHTML +=
+			`<div class="card" id="item_${item.id}">
+					<div class="item-image">
+						<img src="images/${item.image}" alt="${item.name} Image">
+					</div>
+					<div class="card-bottom">
+						<div class="item-info">
+							<div class="item-name">${item.name}</div>
+							<div class="item-price">$${item.price}</div>
+						</div>
+						<button onclick="toggleItemInShoppingCart(${item.id})">
+							<div class="add-to-shopping-cart">
+								<i class='bx bx-shopping-bag'></i>
+							</div>
+						</button>
+					</div>
+			 </div>`;
+	}
+}
 
 var shoppingCart = [];
 
-showShoppingCartBtn = document.getElementById("showShoppingCart");
+const showShoppingCartBtn = document.getElementById("showShoppingCart");
 showShoppingCartBtn.addEventListener("click", showCartContent);
-cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
+clearSearchBtn.addEventListener("click", event => {
+	document.getElementById("searchInput").value = "";
+	displayItems(items);
+});
+
+const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
 cartContentCloseBtn .addEventListener("click", () => {
 	const cartContentDiv = document.getElementById("cartContent");
 	cartContentDiv.style.display = "none";
 });
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", (event) => {
+	let searchString = searchInput.value.toLowerCase();
+	let filteredItems = items.filter( item => item.name.toLowerCase().includes(searchString) );
+	displayItems(filteredItems);
+});
+
 
 var items = [
 	{
@@ -113,25 +151,4 @@ var items = [
 	}
 ];
 
-
-const itemsElement = document.querySelector(".items");
-
-for (let item of items) {
-	itemsElement.innerHTML +=
-		`<div class="card" id="item_${item.id}">
-				<div class="item-image">
-					<img src="images/${item.image}" alt="${item.name} Image">
-				</div>
-				<div class="card-bottom">
-					<div class="item-info">
-						<div class="item-name">${item.name}</div>
-						<div class="item-price">$${item.price}</div>
-					</div>
-					<button onclick="toggleItemInShoppingCart(${item.id})">
-						<div class="add-to-shopping-cart">
-							<i class='bx bx-shopping-bag'></i>
-						</div>
-					</button>
-				</div>
-		 </div>`;
-}
+displayItems(items);

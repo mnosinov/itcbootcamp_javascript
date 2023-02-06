@@ -1,31 +1,33 @@
-function addNumber1(list, increment) {
-	return list.map( (element, index, array) => { return element + increment; });
-}
+// Filter an array of numbers and return the sum of all numbers that are divisible by a specific number.
 
-function addNumber2(list, increment, operation) {
-	return list.map( element => { 
-		switch (operation) {
-			case "+":
-				return element + increment;
-			case "-":
-				return element - increment;
-			case "*":
-				return element * increment;
-			case "/":
-				return element === 0 && increment === 0 ? 0 : element / increment;
-		}
-	});
-}
+const numbers = [1, 5, 13, 20, 35, 77, 100, 222, 500, 41];
 
-console.log(addNumber1([1,2,3,4], 10));
-console.log(addNumber1([-1, 0, 1, 2], -5));
+const divisor = 5;
 
-console.log("flexible math operations");
+// version 1
+let selectedNumbers = numbers.filter( number => number  % divisor === 0 );
 
-let nums = [-1, 0, 1, 2];
-console.log(addNumber2(nums, -5, "+"));
-console.log(addNumber2(nums, -5, "-"));
-console.log(addNumber2(nums, -5, "*"));
-console.log(addNumber2(nums, -5, "/"));
-console.log(addNumber2(nums, 0, "/"));
+let sum = 0;
+selectedNumbers.forEach( item => sum += item );
+console.log(sum);
 
+// version 2
+console.log(numbers.filter( number => number % divisor === 0).reduce( (accumulator, curValue) => accumulator += curValue ));
+
+// version 3.1
+console.log(numbers.reduce( (accumulator, number) => accumulator += number % divisor === 0 ? number : 0, 0 ));
+
+// version 3.2 !--- fix it to be working
+console.log(numbers.reduce( (accumulator, number) => {
+	if (number % divisor === 0) {
+		accumulator +=  number;
+	}
+}, 0
+));
+
+// version 4
+sum = 0;
+numbers.forEach( item => {
+	sum += item % divisor === 0 ? item : 0;
+});
+console.log(sum);

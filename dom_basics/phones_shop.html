@@ -19,7 +19,16 @@
 			<div id="cartSize">1</div>
 		</div>
 	</header>
+
 	<main>
+		<div class="searchDiv">
+			<label for="searchInput">Search:</label>
+			<input type="text" id="searchInput" size="50" placeholder="Type something here and press Enter">
+			<button id="clearSearchBtn"><span>&times;</span></button>
+		</div>
+		<div class="priceRangeDiv">
+			<input type="range">
+		</div>
 		<h1 class="title">Shop Products</h1>
 		<div class="items"></div>
 	</main>
@@ -27,7 +36,7 @@
 	<div id="cartContent">
 		<div class="header">
 			<h1>Shopping Cart Content</h1>
-			<button id="cartContentCloseBtn">x</button>
+			<button id="cartContentCloseBtn"><span>&times;</span></button>
 		</div>
 		<div>
 			<ul id="cartItems">

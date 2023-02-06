@@ -14,6 +14,14 @@ body *, *:before, *:after {
   padding: 0;
 }
 
+input {
+	border-radius: 10px;
+	padding: 7px;
+	outline: none;
+	box-shadow: none;
+	border: 1px solid silver;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -72,6 +80,41 @@ main .title {
 	margin: 35px 0 0;
 }
 
+.searchDiv {
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.searchDiv label {
+	font-size: 20px;
+	margin-right: 7px;
+}
+
+.searchDiv input[type=text] {
+	min-width: 200px;
+}
+
+#clearSearchBtn {
+	background-color: transparent;
+	color: gray;
+	font-size: 20px;
+	position: absolute;
+	right: 7px;
+}
+
+.searchDiv button {
+	margin-left: 6px;
+	padding: 7px;
+	border-radius: 7px;
+	border: none;
+	background-color: navy;
+	color: white;
+	outline: none;
+	cursor: pointer;
+}
+
 .items {
 	display: flex;
 	flex-wrap: wrap;
@@ -124,11 +167,12 @@ main .title {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-	border: 1px solid black;
+	border: 1px solid gray;
 	min-width: 400px;
 	min-height: 100px;
 	background-color: white;
 	padding: 5px;
+	border-radius: 10px;
 }
 
 #cartContent .header {
@@ -138,11 +182,15 @@ main .title {
 }
 
 #cartContent .header h1 {
-	font-size: 25px;
+	margin-top: 3px;
+	font-size: 20px;
 }
 
 #cartContentCloseBtn {
-	padding: 3px 7px;
+	background-color: transparent;
+	border: none;
+	padding: 0 7px;
+	font-size: 25px;
 }
 
 #totalCartPrice {
