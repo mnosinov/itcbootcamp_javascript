@@ -12,8 +12,7 @@ function addNumber2(list, increment, operation) {
 			case "*":
 				return element * increment;
 			case "/":
-				if (element === 0 && increment === 0) return 0;
-				return element / increment;
+				return element === 0 && increment === 0 ? 0 : element / increment;
 		}
 	});
 }
