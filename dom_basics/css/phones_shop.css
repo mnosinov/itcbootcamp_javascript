@@ -104,6 +104,17 @@ main .title {
 	right: 7px;
 }
 
+#clearColorSelectBtn {
+	background-color: navy;
+	color: white;
+	padding: 8px 10px;
+	outline: none;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.9em;
+	cursor: pointer;
+}
+
 .searchDiv button {
 	margin-left: 6px;
 	padding: 7px;
@@ -113,6 +124,15 @@ main .title {
 	color: white;
 	outline: none;
 	cursor: pointer;
+}
+
+.colorSelection {
+	margin-top: 20px;
+}
+#selectedColor {
+	padding: 5px 10px;
+	border-radius: 8px;
+	font-size: 1em;
 }
 
 .priceRangeDiv {

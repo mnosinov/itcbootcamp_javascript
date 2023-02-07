@@ -52,6 +52,7 @@ function displayItems(items) {
 					<div class="card-bottom">
 						<div class="item-info">
 							<div class="item-name">${item.name}</div>
+							<div class="item-price">${item.color}</div>
 							<div class="item-price">$${item.price}</div>
 						</div>
 						<button onclick="toggleItemInShoppingCart(${item.id})">
@@ -77,14 +78,99 @@ function getItemsPriceRange(items) {
 	return range;
 }
 
+function createColorSelect(colorSelectElement, colors) {
+	colorSelectElement.innerHTML = '<option value="">-- Select Color --</option>';
+	colors.forEach( color => colorSelectElement.innerHTML += `<option value="${color}">${color}</option>` );
+	colorSelectElement.addEventListener( "change", event => {
+		let searchString = searchInput.value.toLowerCase();
+		let filteredItems = getFilteredItems(items, searchString, selectedColorElement.value);
+		displayItems(filteredItems);
+	});
+}
+
+function getFilteredItems(items, searchString, selectedColor) {
+	let filteredItems = items.filter(
+		item => item.name.toLowerCase().includes(searchString) 
+	);
+	console.log(filteredItems);
+	if (selectedColor) {
+		console.log(selectedColor);
+		console.log(filteredItems);
+		filteredItems = filteredItems.filter( item => item.color === selectedColor);
+	}
+	console.log(filteredItems);
+
+	return filteredItems;
+}
+
+/* -------------------- range slider initialization ----------------- BEGIN */
+const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
+priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
+range = document.querySelector(".priceRangeSlider.slider.progress");
+console.log(rangeInput);
+console.log(priceInput);
+console.log(range);
+let priceGap = 1000;
+
+priceInput.forEach(input =>{
+    input.addEventListener("input", e =>{
+        let minPrice = parseInt(priceInput[0].value),
+        maxPrice = parseInt(priceInput[1].value);
+        
+        if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
+            if(e.target.className === "input-min"){
+                rangeInput[0].value = minPrice;
+                range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+            }else{
+                rangeInput[1].value = maxPrice;
+                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+            }
+        }
+    });
+});
+
+rangeInput.forEach(input =>{
+    input.addEventListener("input", e =>{
+        let minVal = parseInt(rangeInput[0].value),
+        maxVal = parseInt(rangeInput[1].value);
+
+        if((maxVal - minVal) < priceGap){
+            if(e.target.className === "range-min"){
+                rangeInput[0].value = maxVal - priceGap
+            }else{
+                rangeInput[1].value = minVal + priceGap;
+            }
+        }else{
+            priceInput[0].value = minVal;
+            priceInput[1].value = maxVal;
+            range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+        }
+    });
+});
+/* -------------------- range slider initialization ----------------- END */
+
 var shoppingCart = [];
+
+const searchInput = document.getElementById("searchInput");
+const selectedColorElement = document.getElementById("selectedColor");
 
 const showShoppingCartBtn = document.getElementById("showShoppingCart");
 showShoppingCartBtn.addEventListener("click", showCartContent);
 const clearSearchBtn = document.getElementById("clearSearchBtn");
 clearSearchBtn.addEventListener("click", event => {
 	document.getElementById("searchInput").value = "";
-	displayItems(items);
+	let searchString = searchInput.value.toLowerCase();
+	let filteredItems = getFilteredItems(items, searchString, selectedColorElement.value);
+	displayItems(filteredItems);
+});
+
+const clearColorSelectBtn = document.getElementById("clearColorSelectBtn");
+clearColorSelectBtn.addEventListener("click", event => {
+	document.getElementById("selectedColor").value = "";
+	let searchString = searchInput.value.toLowerCase();
+	let filteredItems = getFilteredItems(items, searchString, selectedColorElement.value);
+	displayItems(filteredItems);
 });
 
 const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
@@ -93,11 +179,9 @@ cartContentCloseBtn .addEventListener("click", () => {
 	cartContentDiv.style.display = "none";
 });
 
-const searchInput = document.getElementById("searchInput");
-
 searchInput.addEventListener("input", (event) => {
 	let searchString = searchInput.value.toLowerCase();
-	let filteredItems = items.filter( item => item.name.toLowerCase().includes(searchString) );
+	let filteredItems = getFilteredItems(items, searchString, selectedColorElement.value);
 	displayItems(filteredItems);
 });
 
@@ -107,11 +191,17 @@ var items = [
 	{ id: 3, name: "Samsung A53", price: 500, image: "phone-3.jpg", color: "silver" },
 	{ id: 4, name: "Google Pixel 7", price: 700, image: "phone-3.jpg", color: "silver" },
 	{ id: 5, name: "OnePlus Nord N20 5G", price: 750, image: "phone-4.jpg", color: "black" },
-	{ id: 6, name: "Samsung Galaxy A03s", price: 550, image: "phone-5.jpg", color: "gray" },
+	{ id: 6, name: "Samsung Galaxy A03s", price: 550, image: "phone-5.jpg", color: "grey" },
 	{ id: 7, name: "Samsung Galaxy Z Flip 4", price: 1250, image: "phone-6.jpg", color: "navy" },
 	{ id: 8, name: "Samsung Galaxy S22 Ultra", price: 350, image: "phone-7.jpg", color: "red" },
 	{ id: 9, name: "Asus Zenfone 9", price: 700, image: "phone-8.jpg", color: "dark green" },
 	{ id: 10, name: "Google Pixel 6A", price: 730, image: "phone-9.jpg", color: "grey" }
 ];
+
+const uniqueColors = items.filter(
+	(item, index, array) => array.slice(0, index).filter( innerItem => innerItem.color === item.color ).length === 0
+).map( phone => phone.color );
+
+createColorSelect(selectedColorElement, uniqueColors);
 
 displayItems(items);
