@@ -115,10 +115,23 @@ main .title {
 	cursor: pointer;
 }
 
+.priceRangeDiv {
+	margin-top: 10px;
+	display: flex;
+}
+
+.priceRangeDiv>div {
+	margin: 0 10px;
+}
+
 .items {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+}
+
+.message {
+	margin-top: 40px;
 }
 
 .card {

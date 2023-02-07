@@ -40,7 +40,8 @@ function showCartContent() {
 
 function displayItems(items) {
 	const itemsElement = document.querySelector(".items");
-	itemsElement.innerHTML = "";
+
+	itemsElement.innerHTML = items.length ? "" : "<p class='message'>Items not found</p>";
 
 	for (let item of items) {
 		itemsElement.innerHTML +=
@@ -61,6 +62,19 @@ function displayItems(items) {
 					</div>
 			 </div>`;
 	}
+}
+
+function getItemsPriceRange(items) {
+	//let range = [items[0], items[0]];
+	let range = [1, 34];
+	items.forEach( item => {
+		if (item < range[0]) {
+			range[0] = item;
+		} else if (item > range[1]) {
+			range[1] = item;
+		}
+	});
+	return range;
 }
 
 var shoppingCart = [];
@@ -87,68 +101,17 @@ searchInput.addEventListener("input", (event) => {
 	displayItems(filteredItems);
 });
 
-
 var items = [
-	{
-		id: 1,
-		name: "iPHONE 12",
-		price: 1750,
-		image: "phone-1.jpg"
-	},
-	{
-		id: 2,
-		name: "iPHONE 13",
-		price: 1500,
-		image: "phone-2.jpg"
-	},
-	{
-		id: 3,
-		name: "Samsung A53",
-		price: 500,
-		image: "phone-3.jpg"
-	},
-	{
-		id: 4,
-		name: "Google Pixel 7",
-		price: 700,
-		image: "phone-3.jpg"
-	},
-	{
-		id: 5,
-		name: "OnePlus Nord N20 5G",
-		price: 750,
-		image: "phone-4.jpg"
-	},
-	{
-		id: 6,
-		name: "Samsung Galaxy A03s",
-		price: 550,
-		image: "phone-5.jpg"
-	},
-	{
-		id: 7,
-		name: "Samsung Galaxy Z Flip 4",
-		price: 1250,
-		image: "phone-6.jpg"
-	},
-	{
-		id: 8,
-		name: "Samsung Galaxy S22 Ultra",
-		price: 350,
-		image: "phone-7.jpg"
-	},
-	{
-		id: 9,
-		name: "Asus Zenfone 9",
-		price: 700,
-		image: "phone-8.jpg"
-	},
-	{
-		id: 10,
-		name: "Google Pixel 6A",
-		price: 730,
-		image: "phone-9.jpg"
-	}
+	{ id: 1, name: "iPHONE 12", price: 1750, image: "phone-1.jpg", color: "blue" },
+	{ id: 2, name: "iPHONE 13", price: 1500, image: "phone-2.jpg", color: "sky blue" },
+	{ id: 3, name: "Samsung A53", price: 500, image: "phone-3.jpg", color: "silver" },
+	{ id: 4, name: "Google Pixel 7", price: 700, image: "phone-3.jpg", color: "silver" },
+	{ id: 5, name: "OnePlus Nord N20 5G", price: 750, image: "phone-4.jpg", color: "black" },
+	{ id: 6, name: "Samsung Galaxy A03s", price: 550, image: "phone-5.jpg", color: "gray" },
+	{ id: 7, name: "Samsung Galaxy Z Flip 4", price: 1250, image: "phone-6.jpg", color: "navy" },
+	{ id: 8, name: "Samsung Galaxy S22 Ultra", price: 350, image: "phone-7.jpg", color: "red" },
+	{ id: 9, name: "Asus Zenfone 9", price: 700, image: "phone-8.jpg", color: "dark green" },
+	{ id: 10, name: "Google Pixel 6A", price: 730, image: "phone-9.jpg", color: "grey" }
 ];
 
 displayItems(items);
