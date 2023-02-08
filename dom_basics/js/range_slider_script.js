@@ -1,6 +1,6 @@
-const rangeInput = document.querySelectorAll(".priceRangeSlider.range-input input"),
-priceInput = document.querySelectorAll(".priceRangeSlider.price-input input"),
-range = document.querySelector(".priceRangeSlider.slider.progress");
+const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
+priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
+range = document.querySelector(".priceRangeSlider .slider .progress");
 let priceGap = 1000;
 
 priceInput.forEach(input =>{

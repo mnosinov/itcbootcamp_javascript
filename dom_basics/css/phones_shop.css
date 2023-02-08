@@ -127,22 +127,42 @@ main .title {
 }
 
 .colorSelection {
-	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 20px;
 }
+
 #selectedColor {
 	padding: 5px 10px;
 	border-radius: 8px;
 	font-size: 1em;
 }
 
-.priceRangeDiv {
-	margin-top: 10px;
+#colorPicker {
+	margin: 0px 10px;
 	display: flex;
+	align-items: center;
 }
 
-.priceRangeDiv>div {
-	margin: 0 10px;
+.selectedColorBtn {
+	border-color: red !important;
+	min-width: 33px !important;
+	min-height: 33px !important;
 }
+
+.colorBtn {
+	min-width: 30px;
+	min-height: 30px;
+	border-radius: 100%;
+	border: 3px solid silver;
+	cursor: pointer;
+}
+
+.priceRangeSlider {
+	max-width: 400px;
+}
+
 
 .items {
 	display: flex;
