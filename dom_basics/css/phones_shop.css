@@ -120,6 +120,7 @@ main .title {
 	border-radius: 8px;
 	font-size: 0.9em;
 	cursor: pointer;
+	margin-left: 25px;
 }
 
 .searchDiv button {
@@ -149,6 +150,13 @@ main .title {
 	margin-bottom: 10px;
 }
 
+.colorsSelectionOperation {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
 #selectedColor {
 	display: none;
 	padding: 5px 10px;
@@ -160,6 +168,10 @@ main .title {
 	margin: 0px 10px;
 	display: flex;
 	align-items: center;
+}
+
+#isMultipleColorsChoiceAllowed {
+	margin-right: 4px;
 }
 
 .selectedColorBtn {

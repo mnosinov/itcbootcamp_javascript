@@ -104,6 +104,15 @@ function colorPicker(colorPickerElement, colors) {
 		colorBtn.style.backgroundColor = color;
 		colorBtn.addEventListener( "click", event => {
 			const selectedColorBtn = event.target;
+			const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
+			if (!isMultipleColorsChoiceAllowed.checked) {
+				// single color filter applied - clear colors selection
+				console.log(isMultipleColorsChoiceAllowed);
+				const selectedColorsBtns = document.querySelectorAll('.selectedColorBtn');
+				for (let btn of selectedColorsBtns) {
+					btn.classList.remove("selectedColorBtn");
+				}
+			}
 			selectedColorBtn.classList.toggle('selectedColorBtn');
 			let searchString = searchInput.value.toLowerCase();
 			let filteredItems = getFilteredItems(items, searchString);
@@ -206,7 +215,6 @@ const uniqueColors = items.filter(
 // find max price
 const maxPrice = items.reduce( (maxValue, curItem) => curItem.price > maxValue ? curItem.price : maxValue, items[0].price);
 
-console.log(maxPrice);
 document.getElementById('priceRangeMaxValue').value = maxPrice;
 const priceRangeMin = document.getElementById('priceRangeMin');
 const priceRangeMax = document.getElementById('priceRangeMax');
@@ -215,16 +223,18 @@ priceRangeMin.max = maxPrice;
 priceRangeMax.max = maxPrice;
 priceRangeMax.value = maxPrice;
 
+
+const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
+isMultipleColorsChoiceAllowed.addEventListener("input", event => {
+	clearColorSelectBtn.click();
+});
+
+
 /* -------------------- range slider initialization ----------------- BEGIN */
 const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
 priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
 range = document.querySelector(".priceRangeSlider .slider .progress");
 let priceGap = 1;
-console.log(rangeInput[0].value);
-console.log(rangeInput[1].value);
-console.log(priceInput[0].value);
-console.log(priceInput[1].value);
-console.log(range);
 
 
 priceInput.forEach(input =>{
