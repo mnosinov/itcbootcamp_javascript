@@ -107,7 +107,6 @@ function colorPicker(colorPickerElement, colors) {
 			const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
 			if (!isMultipleColorsChoiceAllowed.checked) {
 				// single color filter applied - clear colors selection
-				console.log(isMultipleColorsChoiceAllowed);
 				const selectedColorsBtns = document.querySelectorAll('.selectedColorBtn');
 				for (let btn of selectedColorsBtns) {
 					btn.classList.remove("selectedColorBtn");
