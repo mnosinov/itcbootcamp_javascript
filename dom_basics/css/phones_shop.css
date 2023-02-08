@@ -80,8 +80,15 @@ main .title {
 	margin: 35px 0 0;
 }
 
+.filterDiv {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #ffeac7;
+	padding: 10px;
+}
+
 .searchDiv {
-	margin-top: 30px;
 	display: flex;
 	align-items: center;
 	position: relative;
@@ -128,12 +135,22 @@ main .title {
 
 .colorSelection {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin: 20px;
 }
 
+.colors {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
 #selectedColor {
+	display: none;
 	padding: 5px 10px;
 	border-radius: 8px;
 	font-size: 1em;
