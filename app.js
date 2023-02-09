@@ -109,23 +109,30 @@ function isAge35Exists(data) {
 	});
 }
 
-function isAge35Exists(data) {
+function isAge35Exists1(data) {
 	return data.employees.some( emp => emp.age === 35 );
 }
 console.log(isAge35Exists(data));
+console.log(isAge35Exists1(data));
 
 /* array every ------------------------------------- BEGIN */
+const allLengthEq2 = function(words) {
+	return words.every( word => word.length === 2 );
+};
 const words = ['hi', 'my', 'fi'];
-let bool = words.every( word => word.length === 2 );
-console.log(bool);
+console.log(allLengthEq2(words));
 words.push('good');
-bool = words.every( word => word.length === 2 );
-console.log(bool);
+console.log(allLengthEq2(words));
 
+const allEven = numbers => {
+	return numbersArr.every( (element, index, array) => element % 2 === 0 );
+};
 const numbersArr = [2, 4, 6, 8, 10];
-bool = numbersArr.every( (element, index, array) => element % 2 === 0 );
-console.log(bool);
+console.log(allEven(numbersArr));
+
+function areAllIncludesBall(sports) {
+	return sports.every( (element, index, array) => element.includes('ball'));
+}
 
 const sports = ['football', 'basketball', 'paintball'];
-bool = sports.every( (element, index, array) => element.includes('ball'));
-console.log(bool);
+console.log(areAllIncludesBall(sports));
