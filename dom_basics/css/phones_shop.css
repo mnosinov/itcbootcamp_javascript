@@ -83,9 +83,10 @@ main .title {
 .filterDiv {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	background-color: #ffeac7;
 	padding: 10px;
+	flex-wrap: wrap;
 }
 
 .searchDiv {
