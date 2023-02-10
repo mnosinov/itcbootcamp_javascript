@@ -1,3 +1,22 @@
+const shoppingCartIcon = document.querySelector("#shoppingCart");
+const cartSizeElement = document.getElementById("cartSize");
+const cartContentDiv = document.getElementById("cartContent");
+const cartItemsUl = document.getElementById("cartItems");
+const totalCartPriceDiv = document.getElementById("totalCartPrice");
+const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
+const priceRangeMin = document.getElementById('priceRangeMin');
+const priceRangeMax = document.getElementById('priceRangeMax');
+const searchInput = document.getElementById("searchInput");
+//const selectedColorElement = document.getElementById("selectedColor");
+const colorPickerElement = document.getElementById("colorPicker");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
+const showShoppingCartBtn = document.getElementById("showShoppingCart");
+const clearColorSelectBtn = document.getElementById("clearColorSelectBtn");
+const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
+
+// items in shopping Cart 
+var shoppingCart = [];
+
 function toggleItemInShoppingCart(itemId) {
 	let index = shoppingCart.indexOf(itemId);
 	// add or remove item to/from shopping cart
@@ -10,31 +29,21 @@ function toggleItemInShoppingCart(itemId) {
 		shoppingCart.splice(index, 1);
 		addOrRemoveItemToOrFromShoppingCart.style.backgroundColor = "black";
 	}
-	const shoppingCartIcon = document.querySelector("#shoppingCart");
-
-	const cartSizeElement = document.getElementById("cartSize");
 	cartSizeElement.style.display = shoppingCart.length !== 0 ? "flex" : "none";
 	cartSizeElement.textContent = shoppingCart.length;
 }
 
 function showCartContent() {
-	const cartContentDiv = document.getElementById("cartContent");
 	cartContentDiv.style.display = "flex";
-	const cartItemsUl = document.getElementById("cartItems");
 	cartItemsUl.innerHTML = "";
 
 	let totalCartPrice = 0;
 	for (let i = 0; i < shoppingCart.length; i++) {
 		const cartItemId = shoppingCart[i];
 		const item = items.find(item => item.id == cartItemId);
-		cartItemsUl.innerHTML += `
-			<li>
-				${i + 1}. <strong>${item.name}</strong> ${item.price}$
-			</li>
-		`;
+		cartItemsUl.innerHTML += `<li>${i + 1}. <strong>${item.name}</strong>&nbsp;${item.price}$</li>`;
 		totalCartPrice += item.price;
 	}
-	const totalCartPriceDiv = document.getElementById("totalCartPrice");
 	totalCartPriceDiv.innerHTML = `Total price: $${totalCartPrice}`;
 }
 
@@ -65,19 +74,8 @@ function displayItems(items) {
 	}
 }
 
-function getItemsPriceRange(items) {
-	//let range = [items[0], items[0]];
-	let range = [1, 34];
-	items.forEach( item => {
-		if (item < range[0]) {
-			range[0] = item;
-		} else if (item > range[1]) {
-			range[1] = item;
-		}
-	});
-	return range;
-}
-
+/* select element for color selection is hidden now, because colors buttons aka ColorPicker had been implemented */
+/*
 function createColorSelect(colorSelectElement, colors) {
 	colorSelectElement.innerHTML = '<option value="">-- Select Color --</option>';
 	colors.forEach( color => colorSelectElement.innerHTML += `<option value="${color}">${color}</option>` );
@@ -87,6 +85,7 @@ function createColorSelect(colorSelectElement, colors) {
 		displayItems(filteredItems);
 	});
 }
+*/
 
 function colorPicker(colorPickerElement, colors) {
 	// save selected colors if they are exists
@@ -104,7 +103,6 @@ function colorPicker(colorPickerElement, colors) {
 		colorBtn.style.backgroundColor = color;
 		colorBtn.addEventListener( "click", event => {
 			const selectedColorBtn = event.target;
-			const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
 			if (!isMultipleColorsChoiceAllowed.checked) {
 				// single color filter applied - clear colors selection
 				const selectedColorsBtns = document.querySelectorAll('.selectedColorBtn');
@@ -150,15 +148,8 @@ function getFilteredItems(items, searchString) {
 }
 
 
-var shoppingCart = [];
 
-const searchInput = document.getElementById("searchInput");
-const selectedColorElement = document.getElementById("selectedColor");
-const colorPickerElement = document.getElementById("colorPicker");
-
-const showShoppingCartBtn = document.getElementById("showShoppingCart");
 showShoppingCartBtn.addEventListener("click", showCartContent);
-const clearSearchBtn = document.getElementById("clearSearchBtn");
 clearSearchBtn.addEventListener("click", event => {
 	document.getElementById("searchInput").value = "";
 	let searchString = searchInput.value.toLowerCase();
@@ -166,7 +157,6 @@ clearSearchBtn.addEventListener("click", event => {
 	displayItems(filteredItems);
 });
 
-const clearColorSelectBtn = document.getElementById("clearColorSelectBtn");
 clearColorSelectBtn.addEventListener("click", event => {
 	// drop down list - select tag
 	document.getElementById("selectedColor").value = "";
@@ -182,7 +172,6 @@ clearColorSelectBtn.addEventListener("click", event => {
 	displayItems(filteredItems);
 });
 
-const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
 cartContentCloseBtn.addEventListener("click", () => {
 	const cartContentDiv = document.getElementById("cartContent");
 	cartContentDiv.style.display = "none";
@@ -215,19 +204,15 @@ const uniqueColors = items.filter(
 const maxPrice = items.reduce( (maxValue, curItem) => curItem.price > maxValue ? curItem.price : maxValue, items[0].price);
 
 document.getElementById('priceRangeMaxValue').value = maxPrice;
-const priceRangeMin = document.getElementById('priceRangeMin');
-const priceRangeMax = document.getElementById('priceRangeMax');
 
 priceRangeMin.max = maxPrice;
 priceRangeMax.max = maxPrice;
 priceRangeMax.value = maxPrice;
 
 
-const isMultipleColorsChoiceAllowed = document.getElementById('isMultipleColorsChoiceAllowed');
 isMultipleColorsChoiceAllowed.addEventListener("input", event => {
 	clearColorSelectBtn.click();
 });
-
 
 /* -------------------- range slider initialization ----------------- BEGIN */
 const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
@@ -282,7 +267,7 @@ rangeInput.forEach(input =>{
 });
 /* -------------------- range slider initialization ----------------- END */
 
-createColorSelect(selectedColorElement, uniqueColors);
+//createColorSelect(selectedColorElement, uniqueColors);
 colorPicker(colorPickerElement, uniqueColors);
 
 
