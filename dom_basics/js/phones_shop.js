@@ -48,11 +48,14 @@ function showCartContent() {
 }
 
 function displayItems(items) {
+	let searchString = searchInput.value.toLowerCase();
+	let filteredItems = getFilteredItems(items, searchString);
+
 	const itemsElement = document.querySelector(".items");
 
-	itemsElement.innerHTML = items.length ? "" : "<p class='message'>Items not found</p>";
+	itemsElement.innerHTML = filteredItems.length ? "" : "<p class='message'>Items not found</p>";
 
-	for (let item of items) {
+	for (let item of filteredItems) {
 		itemsElement.innerHTML +=
 			`<div class="card" id="item_${item.id}">
 					<div class="item-image">
@@ -80,9 +83,7 @@ function createColorSelect(colorSelectElement, colors) {
 	colorSelectElement.innerHTML = '<option value="">-- Select Color --</option>';
 	colors.forEach( color => colorSelectElement.innerHTML += `<option value="${color}">${color}</option>` );
 	colorSelectElement.addEventListener( "change", event => {
-		let searchString = searchInput.value.toLowerCase();
-		let filteredItems = getFilteredItems(items, searchString);
-		displayItems(filteredItems);
+		displayItems(items);
 	});
 }
 */
@@ -111,9 +112,7 @@ function colorPicker(colorPickerElement, colors) {
 				}
 			}
 			selectedColorBtn.classList.toggle('selectedColorBtn');
-			let searchString = searchInput.value.toLowerCase();
-			let filteredItems = getFilteredItems(items, searchString);
-			displayItems(filteredItems);
+			displayItems(items);
 		});
 		// restore colors selection
 		if (selectedColors.includes(color)) {
@@ -147,14 +146,10 @@ function getFilteredItems(items, searchString) {
 	return filteredItems;
 }
 
-
-
 showShoppingCartBtn.addEventListener("click", showCartContent);
 clearSearchBtn.addEventListener("click", event => {
 	document.getElementById("searchInput").value = "";
-	let searchString = searchInput.value.toLowerCase();
-	let filteredItems = getFilteredItems(items, searchString);
-	displayItems(filteredItems);
+	displayItems(items);
 });
 
 clearColorSelectBtn.addEventListener("click", event => {
@@ -167,9 +162,7 @@ clearColorSelectBtn.addEventListener("click", event => {
 		btn.classList.remove("selectedColorBtn");
 	}
 
-	let searchString = searchInput.value.toLowerCase();
-	let filteredItems = getFilteredItems(items, searchString);
-	displayItems(filteredItems);
+	displayItems(items);
 });
 
 cartContentCloseBtn.addEventListener("click", () => {
@@ -178,9 +171,7 @@ cartContentCloseBtn.addEventListener("click", () => {
 });
 
 searchInput.addEventListener("input", (event) => {
-	let searchString = searchInput.value.toLowerCase();
-	let filteredItems = getFilteredItems(items, searchString);
-	displayItems(filteredItems);
+	displayItems(items);
 });
 
 var items = [
@@ -220,7 +211,6 @@ priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
 range = document.querySelector(".priceRangeSlider .slider .progress");
 let priceGap = 1;
 
-
 priceInput.forEach(input =>{
     input.addEventListener("input", e =>{
         let minPrice = parseInt(priceInput[0].value),
@@ -236,9 +226,7 @@ priceInput.forEach(input =>{
             }
         }
 				document.getElementById("searchInput").value = "";
-				let searchString = searchInput.value.toLowerCase();
-				let filteredItems = getFilteredItems(items, searchString);
-				displayItems(filteredItems);
+				displayItems(items);
     });
 });
 
@@ -260,15 +248,12 @@ rangeInput.forEach(input =>{
             range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
         }
 				document.getElementById("searchInput").value = "";
-				let searchString = searchInput.value.toLowerCase();
-				let filteredItems = getFilteredItems(items, searchString);
-				displayItems(filteredItems);
+				displayItems(items);
     });
 });
 /* -------------------- range slider initialization ----------------- END */
 
 //createColorSelect(selectedColorElement, uniqueColors);
 colorPicker(colorPickerElement, uniqueColors);
-
 
 displayItems(items);
