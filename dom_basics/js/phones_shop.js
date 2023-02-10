@@ -13,6 +13,7 @@ const clearSearchBtn = document.getElementById("clearSearchBtn");
 const showShoppingCartBtn = document.getElementById("showShoppingCart");
 const clearColorSelectBtn = document.getElementById("clearColorSelectBtn");
 const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
+const sortingSelectElement = document.getElementById("sortingSelectElement");
 
 // items in shopping Cart 
 var shoppingCart = [];
@@ -54,6 +55,17 @@ function displayItems(items) {
 	const itemsElement = document.querySelector(".items");
 
 	itemsElement.innerHTML = filteredItems.length ? "" : "<p class='message'>Items not found</p>";
+	// sorting
+	let sortingOrder = sortingSelectElement.value; 
+	if (sortingOrder === 'price_asc') {
+		filteredItems.sort( (a, b) => a.price - b.price );
+	} else if (sortingOrder === 'price_desc') {
+		filteredItems.sort( (a, b) => b.price - a.price );
+	} else if (sortingOrder === 'name_asc') {
+		filteredItems.sort( (a, b) => a.name.localeCompare(b.name) );
+	} else if (sortingOrder === 'name_desc') {
+		filteredItems.sort( (a, b) => b.name.localeCompare(a.name) );
+	}
 
 	for (let item of filteredItems) {
 		itemsElement.innerHTML +=
@@ -174,6 +186,10 @@ searchInput.addEventListener("input", (event) => {
 	displayItems(items);
 });
 
+sortingSelectElement.addEventListener("change", event => {
+	displayItems(items);
+});
+
 var items = [
 	{ id: 1, name: "iPHONE 12", price: 1750, image: "phone-1.jpg", color: "blue" },
 	{ id: 2, name: "iPHONE 13", price: 1500, image: "phone-2.jpg", color: "SkyBlue" },
@@ -199,7 +215,6 @@ document.getElementById('priceRangeMaxValue').value = maxPrice;
 priceRangeMin.max = maxPrice;
 priceRangeMax.max = maxPrice;
 priceRangeMax.value = maxPrice;
-
 
 isMultipleColorsChoiceAllowed.addEventListener("input", event => {
 	clearColorSelectBtn.click();
