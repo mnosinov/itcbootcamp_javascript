@@ -14,9 +14,12 @@ const showShoppingCartBtn = document.getElementById("showShoppingCart");
 const clearColorSelectBtn = document.getElementById("clearColorSelectBtn");
 const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
 const sortingSelectElement = document.getElementById("sortingSelectElement");
+const listViewBtn = document.getElementById("listViewBtn");
+const tileViewBtn = document.getElementById("tileViewBtn");
 
 // items in shopping Cart 
 var shoppingCart = [];
+var viewMode = "tileView";
 
 function toggleItemInShoppingCart(itemId) {
 	let index = shoppingCart.indexOf(itemId);
@@ -67,25 +70,25 @@ function displayItems(items) {
 		filteredItems.sort( (a, b) => b.name.localeCompare(a.name) );
 	}
 
+	console.log(viewMode);
+
 	for (let item of filteredItems) {
 		itemsElement.innerHTML +=
 			`<div class="card" id="item_${item.id}">
 					<div class="item-image">
 						<img src="images/${item.image}" alt="${item.name} Image">
 					</div>
-					<div class="card-bottom">
+					<div class="card-info">
 						<div class="item-info">
 							<div class="item-name">${item.name}</div>
 							<div class="item-price">${item.color}</div>
 							<div class="item-price">$${item.price}</div>
 						</div>
 						<button onclick="toggleItemInShoppingCart(${item.id})">
-							<div class="add-to-shopping-cart">
-								<i class='bx bx-shopping-bag'></i>
-							</div>
+							<div class="add-to-shopping-cart"><i class='bx bx-shopping-bag'></i> </div>
 						</button>
 					</div>
-			 </div>`;
+			</div>`;
 	}
 }
 
@@ -187,6 +190,15 @@ searchInput.addEventListener("input", (event) => {
 });
 
 sortingSelectElement.addEventListener("change", event => {
+	displayItems(items);
+});
+
+listViewBtn.addEventListener("click", event => {
+	viewMode = "listView";
+	displayItems(items);
+});
+tileViewBtn.addEventListener("click", event => {
+	viewMode = "tileView";
 	displayItems(items);
 });
 
