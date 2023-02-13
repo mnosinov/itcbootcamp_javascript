@@ -70,8 +70,6 @@ function displayItems(items) {
 		filteredItems.sort( (a, b) => b.name.localeCompare(a.name) );
 	}
 
-	console.log(viewMode);
-
 	for (let item of filteredItems) {
 		itemsElement.innerHTML +=
 			`<div class="card" id="item_${item.id}">
@@ -87,8 +85,22 @@ function displayItems(items) {
 						<button onclick="toggleItemInShoppingCart(${item.id})">
 							<div class="add-to-shopping-cart"><i class='bx bx-shopping-bag'></i> </div>
 						</button>
+						<button class="delBtn" data-id="${item.id}">Delete</button>
 					</div>
 			</div>`;
+	}
+
+	const delBtns = document.querySelectorAll(".delBtn");
+	for (let index = 0; index < delBtns.length; index++) {
+		const btn = delBtns[index];
+		btn.addEventListener("click", event => {
+			console.log(filteredItems);
+			let indexOfItemToDelete = items.findIndex( item => item.id === +btn.dataset.id);
+			console.log(btn.dataset.id);
+			console.log(indexOfItemToDelete);
+			items.splice(indexOfItemToDelete, 1);
+			displayItems(items);
+		});
 	}
 }
 
@@ -284,3 +296,5 @@ rangeInput.forEach(input =>{
 colorPicker(colorPickerElement, uniqueColors);
 
 displayItems(items);
+
+
