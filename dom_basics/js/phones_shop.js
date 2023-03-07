@@ -16,6 +16,17 @@ const cartContentCloseBtn = document.getElementById("cartContentCloseBtn");
 const sortingSelectElement = document.getElementById("sortingSelectElement");
 const listViewBtn = document.getElementById("listViewBtn");
 const tileViewBtn = document.getElementById("tileViewBtn");
+const modal = document.querySelector(".modal");
+const addItemBtn = document.getElementById("addItemBtn");
+
+const phoneNameInput = document.querySelector(".phone-name");
+const phonePriceInput = document.querySelector(".phone-price");
+const phoneColorInput = document.querySelector(".phone-color");
+const phoneImgInput = document.querySelector(".phone-img");
+const saveNewItemBtn = document.querySelector(".save-new-item");
+const errMsgP = document.querySelector(".err-msg");
+
+modal.style.display = 'none';
 
 // items in shopping Cart 
 var shoppingCart = [];
@@ -71,23 +82,44 @@ function displayItems(items) {
 	}
 
 	for (let item of filteredItems) {
-		itemsElement.innerHTML +=
-			`<div class="card" id="item_${item.id}">
-					<div class="item-image">
-						<img src="images/${item.image}" alt="${item.name} Image">
-					</div>
-					<div class="card-info">
-						<div class="item-info">
-							<div class="item-name">${item.name}</div>
-							<div class="item-price">${item.color}</div>
-							<div class="item-price">$${item.price}</div>
+		if (viewMode === "tileView") {
+			itemsElement.innerHTML +=
+				`<div class="card" id="item_${item.id}">
+						<div class="item-image">
+							<img src="images/${item.image}" alt="${item.name} Image">
 						</div>
-						<button onclick="toggleItemInShoppingCart(${item.id})">
-							<div class="add-to-shopping-cart"><i class='bx bx-shopping-bag'></i> </div>
-						</button>
-						<button class="delBtn" data-id="${item.id}">Delete</button>
-					</div>
-			</div>`;
+						<div class="card-info">
+							<div class="item-info">
+								<div class="item-name">${item.name}</div>
+								<div class="item-price">${item.color}</div>
+								<div class="item-price">$${item.price}</div>
+							</div>
+							<button onclick="toggleItemInShoppingCart(${item.id})">
+								<div class="add-to-shopping-cart"><i class='bx bx-shopping-bag'></i> </div>
+							</button>
+							<button class="delBtn" data-id="${item.id}">Delete</button>
+						</div>
+				</div>`;
+		} else if (viewMode === "listView") {
+			itemsElement.innerHTML +=
+				`<div class="card-listView" id="item_${item.id}">
+						<div class="item-image">
+							<img src="images/${item.image}" alt="${item.name} Image">
+						</div>
+						<div class="card-info">
+							<div class="item-info">
+								<div class="item-name">${item.name}</div>
+								<div class="item-price">${item.color}</div>
+								<div class="item-price">$${item.price}</div>
+							</div>
+							<button onclick="toggleItemInShoppingCart(${item.id})">
+								<div class="add-to-shopping-cart"><i class='bx bx-shopping-bag'></i> </div>
+							</button>
+							<button class="delBtn" data-id="${item.id}">Delete</button>
+						</div>
+				</div>`;
+		}
+
 	}
 
 	const delBtns = document.querySelectorAll(".delBtn");
@@ -173,6 +205,66 @@ function getFilteredItems(items, searchString) {
 	return filteredItems;
 }
 
+/* -------------------- range slider initialization ----------------- BEGIN */
+function setupPriceRange() {
+	// find max price
+	const maxPrice = items.reduce( (maxValue, curItem) => curItem.price > maxValue ? curItem.price : maxValue, items[0].price);
+
+	document.getElementById('priceRangeMaxValue').value = maxPrice;
+
+	priceRangeMin.max = maxPrice;
+	priceRangeMax.max = maxPrice;
+	priceRangeMax.value = maxPrice;
+
+	const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
+	priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
+	range = document.querySelector(".priceRangeSlider .slider .progress");
+	let priceGap = 1;
+
+	priceInput.forEach(input =>{
+			input.addEventListener("input", e =>{
+					let minPrice = parseInt(priceInput[0].value),
+					maxPrice = parseInt(priceInput[1].value);
+					
+					if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
+							if(e.target.className === "input-min"){
+									rangeInput[0].value = minPrice;
+									range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+							}else{
+									rangeInput[1].value = maxPrice;
+									range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+							}
+					}
+					document.getElementById("searchInput").value = "";
+					displayItems(items);
+			});
+	});
+
+	rangeInput.forEach(input =>{
+			input.addEventListener("input", e =>{
+					let minVal = parseInt(rangeInput[0].value),
+					maxVal = parseInt(rangeInput[1].value);
+
+					if((maxVal - minVal) < priceGap){
+							if(e.target.className === "range-min"){
+									rangeInput[0].value = maxVal - priceGap
+							}else{
+									rangeInput[1].value = minVal + priceGap;
+							}
+					}else{
+							priceInput[0].value = minVal;
+							priceInput[1].value = maxVal;
+							range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+							range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+					}
+					document.getElementById("searchInput").value = "";
+					displayItems(items);
+			});
+	});
+}
+
+/* -------------------- range slider initialization ----------------- END */
+
 showShoppingCartBtn.addEventListener("click", showCartContent);
 clearSearchBtn.addEventListener("click", event => {
 	document.getElementById("searchInput").value = "";
@@ -227,70 +319,66 @@ var items = [
 	{ id: 10, name: "Google Pixel 6A", price: 730, image: "phone-9.jpg", color: "grey" }
 ];
 
-const uniqueColors = items.filter(
-	(item, index, array) => array.slice(0, index).filter( innerItem => innerItem.color === item.color ).length === 0
-).map( phone => phone.color );
 
-// find max price
-const maxPrice = items.reduce( (maxValue, curItem) => curItem.price > maxValue ? curItem.price : maxValue, items[0].price);
+function setupColorsFilter() {
+	uniqueColors = items.filter(
+		(item, index, array) => array.slice(0, index).filter( innerItem => innerItem.color === item.color ).length === 0
+	).map( phone => phone.color );
+	return uniqueColors
+}
 
-document.getElementById('priceRangeMaxValue').value = maxPrice;
-
-priceRangeMin.max = maxPrice;
-priceRangeMax.max = maxPrice;
-priceRangeMax.value = maxPrice;
+var uniqueColors = setupColorsFilter();
 
 isMultipleColorsChoiceAllowed.addEventListener("input", event => {
 	clearColorSelectBtn.click();
 });
 
-/* -------------------- range slider initialization ----------------- BEGIN */
-const rangeInput = document.querySelectorAll(".priceRangeSlider .range-input input"),
-priceInput = document.querySelectorAll(".priceRangeSlider .price-input input"),
-range = document.querySelector(".priceRangeSlider .slider .progress");
-let priceGap = 1;
-
-priceInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
-        
-        if((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max){
-            if(e.target.className === "input-min"){
-                rangeInput[0].value = minPrice;
-                range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-            }else{
-                rangeInput[1].value = maxPrice;
-                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-            }
-        }
-				document.getElementById("searchInput").value = "";
-				displayItems(items);
-    });
+addItemBtn.addEventListener("click", event => {
+	modal.style.display = "flex";
 });
 
-rangeInput.forEach(input =>{
-    input.addEventListener("input", e =>{
-        let minVal = parseInt(rangeInput[0].value),
-        maxVal = parseInt(rangeInput[1].value);
-
-        if((maxVal - minVal) < priceGap){
-            if(e.target.className === "range-min"){
-                rangeInput[0].value = maxVal - priceGap
-            }else{
-                rangeInput[1].value = minVal + priceGap;
-            }
-        }else{
-            priceInput[0].value = minVal;
-            priceInput[1].value = maxVal;
-            range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-        }
-				document.getElementById("searchInput").value = "";
-				displayItems(items);
-    });
+window.addEventListener("keydown", event => {
+	if (event.key === "Escape") {
+		modal.style.display = 'none';
+		clearNewItemInputFields();
+	}
 });
-/* -------------------- range slider initialization ----------------- END */
+
+saveNewItemBtn.addEventListener("click", event => {
+	let itemToSave = {
+		id: items.reduce( (accumulator, element) => accumulator < element.id ? element.id : accumulator , 0) + 1,
+		name: phoneNameInput.value,
+		price: phonePriceInput.value,
+		image: phoneImgInput.value,
+		color: phoneColorInput.value
+	};
+
+	if (phoneNameInput.value !== "" && phonePriceInput.value !== "" && phoneImgInput.value !== "" && phoneColorInput !== "") {
+		items.push(itemToSave);
+		console.log(items);
+		// hide modal window
+		modal.style.display = "none";
+		clearNewItemInputFields();
+
+		setupPriceRange();
+		//colorPicker(colorPickerElement, uniqueColors);
+		displayItems(items);
+		console.log(items);
+		errMsgP.innerHTML = "";
+	} else {
+		errMsgP.innerHTML = "All Fields are mandatory"; 
+	}
+});
+
+function clearNewItemInputFields() {
+	phoneNameInput.value = '';
+	phonePriceInput.value = '';
+	phoneColorInput.value = '';
+	phoneImgInput.value = '';
+	errMsgP.innerHTML = ""; 
+}
+
+setupPriceRange();
 
 //createColorSelect(selectedColorElement, uniqueColors);
 colorPicker(colorPickerElement, uniqueColors);

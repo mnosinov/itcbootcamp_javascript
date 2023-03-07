@@ -294,3 +294,40 @@ main .title {
 	width: 100%;
 	margin: 0 10px;
 }
+
+#addItemBtn {
+	margin: 25px;
+	padding: 15px;
+	border-radius: 14px;
+}
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: gray;
+	top: 0;
+	left: 0;
+}
+
+.modal-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 700px;
+	height: 400px;
+	background-color: white;
+	padding: 30px;
+}
+
+
+.modal-container input {
+	border-radius: 5px;
+}
+
+.err-msg {
+	color: red;
+}
